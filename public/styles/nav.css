@@ -1,0 +1,31 @@
+nav {
+  height: 120px;
+  width: 100%;
+  background-color: #4056A1;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+span {
+  margin: 1.5em;
+}
+
+.altFont {
+  font-family: "Source Sans Pro";
+  margin-left: 0em;
+  margin-bottom: 0em ;
+}
+
+.bold {
+  margin-right: .3em;
+  font-weight: bolder;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
