@@ -1,0 +1,35 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+textarea {
+  background-color: #f4f1ec;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid #545149 ;
+  font-family: "Source Sans Pro";
+  margin-bottom: 1em;
+}
+
+label {
+  font-family: "Source Sans Pro";
+  font-weight: bolder;
+}
+
+.new-tweet {
+  width: 100%;
+}
+
+button {
+  background-color: #4056A1;
+  color: white;
+  border: none;
+}
