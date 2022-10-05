@@ -33,3 +33,7 @@ button {
   color: white;
   border: none;
 }
+
+.negative {
+  color: red;
+}
