@@ -35,12 +35,12 @@ article footer {
   margin-bottom: .5em;
 }
 
-i {
-  margin-right: 1em;
+i.fa-user {
+  margin-right: .3em;
 }
 
 .userTweet {
- width: 95%; 
+ width: 96%; 
  padding: 1em;
  font-family: "San Source Pro";
  border-bottom: 4px solid #545149;
@@ -53,4 +53,20 @@ article span {
 
 .userHandle{
   color: #c6ccda;
+}
+
+article:hover {
+  box-shadow: 10px 5px 5px #c6ccda;
+}
+
+
+.articleIcons {
+  color: #4056A1;
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.articleIcons i:hover {
+  color: goldenrod;
 }
