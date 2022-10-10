@@ -8,22 +8,43 @@ $(document).ready(function() {
 
   
   // Test / driver code (temporary). Eventually will get this from the server.
+
+  const data = [
+    {
+      "user": {
+        "name": "Newton",
+        "avatars": "https://i.imgur.com/73hZDYK.png"
+        ,
+        "handle": "@SirIsaac"
+      },
+      "content": {
+        "text": "If I have seen further it is by standing on the shoulders of giants"
+      },
+      "created_at": 1461116232227
+    },
+    {
+      "user": {
+        "name": "Descartes",
+        "avatars": "https://i.imgur.com/nlhLi3I.png",
+        "handle": "@rd" },
+      "content": {
+        "text": "Je pense , donc je suis"
+      },
+      "created_at": 1461113959088
+    }
+  ]
   
-  const tweetData = {
-    "user": {
-      "name": "Newton",
-      "avatars": "https://i.imgur.com/73hZDYK.png",
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
+  const renderTweets = function(tweets) {
+    tweets.forEach((x) => {
+      let $tweet = createTweetElement(x);
+      // Add the html structure to the parent using class
+      $('.previousTweets').append($tweet);
+    })
   }
-  
-  function createTweetElement(obj) {
+
+  const createTweetElement = function (obj) {
     
-    const renderedTweet =  `
+    let $tweet =  `
       <article class="tweet">
 
         <header>
@@ -48,14 +69,9 @@ $(document).ready(function() {
       </article>
       `;
 
-    return renderedTweet;
+    return $tweet;
   }
-  
-  // Call function to set html structure
-  const $tweet = createTweetElement(tweetData);
-  
-  console.log("works");
-  // Add the html structure to the parent using class
-  $('.previousTweets').append($tweet);
+
+  renderTweets(data);
   
 });
