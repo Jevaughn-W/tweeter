@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function() {
-
+  
   // Function which renders a database of tweets
   const renderTweets = function(tweets) {
     tweets.forEach((x) => {
@@ -32,7 +32,7 @@ $(document).ready(function() {
     <span class="userTweet">${obj.content.text}</span>
     
     <footer>
-    <span>${obj.created_at}</span>
+    <span>${timeago.format(obj.created_at)}</span>
     <div class="articleIcons">
     <i class="fa-solid fa-flag"></i>
     <i class="fa-solid fa-retweet"></i>
