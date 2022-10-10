@@ -47,16 +47,25 @@ $(document).ready(function() {
   }
   
   // Submission handler
+
+
   
   $('.new-tweet').submit((event)=>{
     event.preventDefault();
     let urlAsQuery = $('form').serialize();
+    if (urlAsQuery.length === 5) {  // output has a min value of 5 'text=', therefore if value = 5 there is no input
+      alert("Unable to tweet, input is empty!");
+    } else if (urlAsQuery.length > 145) { // if greater that 145 then there are too many words, alternative is $('.counter').val()
+      alert("Exceed character limit!")
+    } else {
+
+      $.ajax( {
+        url: "/tweets",
+        method: 'POST',
+        data: urlAsQuery
+      })
+    }
     
-    $.ajax( {
-      url: "/tweets",
-      method: 'POST',
-      data: urlAsQuery
-    })
   });
   
   // Get database for loading tweets
@@ -66,5 +75,7 @@ $(document).ready(function() {
       renderTweets(data);
     });
   }
+
   loadTweets();
+
 });
