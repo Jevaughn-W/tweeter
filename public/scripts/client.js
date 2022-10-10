@@ -33,7 +33,11 @@ $(document).ready(function() {
       "created_at": 1461113959088
     }
   ]
+
+//
+
   
+  // Function which renders a database of tweets
   const renderTweets = function(tweets) {
     tweets.forEach((x) => {
       let $tweet = createTweetElement(x);
@@ -42,6 +46,7 @@ $(document).ready(function() {
     })
   }
 
+  // Function which renders a signle tweet
   const createTweetElement = function (obj) {
     
     let $tweet =  `
@@ -74,4 +79,18 @@ $(document).ready(function() {
 
   renderTweets(data);
   
+  // Submission handler
+
+  $('.new-tweet').submit((event)=>{
+    event.preventDefault();
+    let urlAsQuery = $('form').serialize();
+  
+    $.ajax( {
+      url: "/tweets",
+     method: 'POST',
+     data: urlAsQuery
+    })
+    .done(console.log("Post works"));
+  });
+
 });
