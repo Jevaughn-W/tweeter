@@ -6,13 +6,21 @@
 
 $(document).ready(function() {
   
-  // Function which renders a database of tweets
+  // Function which renders a database of tweets for newest to oldest
   const renderTweets = function(tweets) {
-    tweets.forEach((x) => {
-      let $tweet = createTweetElement(x);
+    for(let i = tweets.length-1; i >= 0; i--) {
+      let $tweet = createTweetElement(tweets[i]);
       // Add the html structure to the parent using class
       $('.previousTweets').append($tweet);
-    })
+    }
+
+  }
+  // Function which renders latest tweet once submitted 'prepend is needed to add it to the top'
+  const renderLatestTweet = function(tweets) {
+    let latestTweet = tweets.length-1;
+    let $tweet = createTweetElement(tweets[latestTweet]);
+    // Add the html structure to the parent using class
+    $('.previousTweets').prepend($tweet);
   }
   
   // Function which renders a signle tweet
@@ -23,7 +31,7 @@ $(document).ready(function() {
     
     <header>
     <div class="headerLeft">
-    <i class="fa-regular fa-user"></i>
+    <img src="${obj.user.avatars}"/>
     <span class="userName">${obj.user.name}</span>
     </div>
     <span class="userHandle">${obj.user.handle}</span>
@@ -42,14 +50,21 @@ $(document).ready(function() {
     
     </article>
     `;
-    
     return $tweet;
   }
   
+  // Get database for loading tweets
+  const loadTweets = function() {
+    $.ajax("/tweets",{method: "GET"})
+    .then(function(data) {
+      renderTweets(data);
+    });
+  }
+
+  // rendering of all the saved tweets
+  loadTweets();
+
   // Submission handler
-
-
-  
   $('.new-tweet').submit((event)=>{
     event.preventDefault();
     let urlAsQuery = $('form').serialize();
@@ -64,18 +79,17 @@ $(document).ready(function() {
         method: 'POST',
         data: urlAsQuery
       })
+      
+      $('textarea').val("");
+      $('.counter').val(140);
+      
+      $.ajax("/tweets",{method: "GET"}) //Load latest tweet can user load tweets refactoreded with a call back
+      .then(function(data) {
+        renderLatestTweet(data);
+      });
+      
     }
-    
   });
   
-  // Get database for loading tweets
-  const loadTweets = function() {
-    $.ajax("/tweets",{method: "GET"})
-    .then(function(data) {
-      renderTweets(data);
-    });
-  }
-
-  loadTweets();
 
 });
