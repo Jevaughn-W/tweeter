@@ -5,7 +5,15 @@
  */
 
 $(document).ready(function() {
-  
+    
+  // Escape function which prevents code from Cross site sripting --- there is a bug that recreates the last tweet on submission but changes after refresh
+    const escape = function (str) {
+      let div = document.createElement("div");
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    };
+
+
   // Function which renders a database of tweets for newest to oldest
   const renderTweets = function(tweets) {
     for(let i = tweets.length-1; i >= 0; i--) {
@@ -37,7 +45,7 @@ $(document).ready(function() {
     <span class="userHandle">${obj.user.handle}</span>
     </header>
     
-    <span class="userTweet">${obj.content.text}</span>
+    <span class="userTweet">${escape(obj.content.text)}</span>
     
     <footer>
     <span>${timeago.format(obj.created_at)}</span>
@@ -90,6 +98,6 @@ $(document).ready(function() {
       
     }
   });
-  
+
 
 });
