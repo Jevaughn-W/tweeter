@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
     <link rel="stylesheet" href="/styles/old-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/error.css" type="text/css" />
 
     <!-- External JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -55,7 +56,12 @@
 
     <!--Tweet Card-->
     <section class="new-tweet">
-      <h2>Compose Tweet</h2>
+
+      <!--Error handling-->
+      <h2 >Compose Tweet</h2>
+      <h2 class="bar error hiddenEmpty">Error, unable to post empty tweet</h2>
+      <h2 class="bar error hiddenExceed">Error, maximum characters exceeded; limit tweet to 140 characters</h2>
+
       <form action="/tweets" method="POST">
         <label for="tweet-text">What are you humming about?</label>
         <textarea name="text" id="tweet-text"></textarea>
