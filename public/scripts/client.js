@@ -7,30 +7,12 @@
 $(document).ready(function() {
     
   // Escape function which prevents code from Cross site sripting --- there is a bug that recreates the last tweet on submission but changes after refresh
-    const escape = function (str) {
-      let div = document.createElement("div");
-      div.appendChild(document.createTextNode(str));
-      return div.innerHTML;
-    };
+  const escape = function (str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
 
-
-  // Function which renders a database of tweets for newest to oldest
-  const renderTweets = function(tweets) {
-    for(let i = tweets.length-1; i >= 0; i--) {
-      let $tweet = createTweetElement(tweets[i]);
-      // Add the html structure to the parent using class
-      $('.previousTweets').append($tweet);
-    }
-
-  }
-  // Function which renders latest tweet once submitted 'prepend is needed to add it to the top'
-  const renderLatestTweet = function(tweets) {
-    let latestTweet = tweets.length-1;
-    let $tweet = createTweetElement(tweets[latestTweet]);
-    // Add the html structure to the parent using class
-    $('.previousTweets').prepend($tweet);
-  }
-  
   // Function which renders a signle tweet
   const createTweetElement = function (obj) {
     
@@ -60,6 +42,24 @@ $(document).ready(function() {
     `;
     return $tweet;
   }
+
+  // Function which renders a database of tweets for newest to oldest
+  const renderTweets = function(tweets) {
+    console.log(tweets);
+    for(let i = tweets.length - 1; i >= 0; i--) {
+      let $tweet = createTweetElement(tweets[i]);
+      // Add the html structure to the parent using class
+      $('.previousTweets').append($tweet);
+    }
+  };
+  // Function which renders latest tweet once submitted 'prepend is needed to add it to the top'
+  const renderLatestTweet = function(tweets) {
+    let latestTweet = tweets.length - 1;
+    let $tweet = createTweetElement(tweets[latestTweet]);
+    // Add the html structure to the parent using class
+    $('.previousTweets').prepend($tweet);
+  }
+  
   
   // Get database for loading tweets
   const loadTweets = function() {
@@ -74,12 +74,20 @@ $(document).ready(function() {
 
   // Submission handler
   $('.new-tweet').submit((event)=>{
-    event.preventDefault();
-    let urlAsQuery = $('form').serialize();
+    event.preventDefault();  // Stops default action from submit button
+
+    let urlAsQuery = $('form').serialize(); //Convert user text input as queryform
+    
+    // Resetting Errors.
+    $('.hiddenEmpty').hide();
+    $('.hiddenExceed').hide();
+    $('textarea').val("");
+    $('.counter').val(140);
+    
     if (urlAsQuery.length === 5) {  // output has a min value of 5 'text=', therefore if value = 5 there is no input
-      alert("Unable to tweet, input is empty!");
+      $('.hiddenEmpty').slideDown("slow");
     } else if (urlAsQuery.length > 145) { // if greater that 145 then there are too many words, alternative is $('.counter').val()
-      alert("Exceed character limit!")
+      $('.hiddenExceed').slideDown("slow");
     } else {
 
       $.ajax( {
@@ -87,9 +95,6 @@ $(document).ready(function() {
         method: 'POST',
         data: urlAsQuery
       })
-      
-      $('textarea').val("");
-      $('.counter').val(140);
       
       $.ajax("/tweets",{method: "GET"}) //Load latest tweet can user load tweets refactoreded with a call back
       .then(function(data) {
