@@ -6,38 +6,37 @@
 
 $(document).ready(function() {
     
-  // Escape function which prevents code from Cross site sripting --- there is a bug that recreates the last tweet on submission but changes after refresh
-  const escape = function (str) {
-    let div = document.createElement("div");
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-  };
-
+  
   // Function which renders a signle tweet
   const createTweetElement = function (obj) {
     
+    // Escape function which prevents code from Cross site sripting --- there is a bug that recreates the last tweet on submission but changes after refresh
+    const escape = function (str) {
+      let div = document.createElement("div");
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    };
+    
     let $tweet =  `
     <article class="tweet">
-    
-    <header>
-    <div class="headerLeft">
-    <img src="${obj.user.avatars}"/>
-    <span class="userName">${obj.user.name}</span>
-    </div>
-    <span class="userHandle">${obj.user.handle}</span>
-    </header>
-    
-    <span class="userTweet">${escape(obj.content.text)}</span>
-    
-    <footer>
-    <span>${timeago.format(obj.created_at)}</span>
-    <div class="articleIcons">
-    <i class="fa-solid fa-flag"></i>
-    <i class="fa-solid fa-retweet"></i>
-    <i class="fa-solid fa-heart"></i>
-    </div>
-    </footer>
-    
+      <header>
+        <div class="headerLeft">
+        <img src="${obj.user.avatars}"/>
+        <span class="userName">${obj.user.name}</span>
+        </div>
+        <span class="userHandle">${obj.user.handle}</span>
+      </header>
+
+      <span class="userTweet">${escape(obj.content.text)}</span>
+
+      <footer>
+        <span>${timeago.format(obj.created_at)}</span>
+        <div class="articleIcons">
+          <i class="fa-solid fa-flag"></i>
+          <i class="fa-solid fa-retweet"></i>
+          <i class="fa-solid fa-heart"></i>
+        </div>
+      </footer>
     </article>
     `;
     return $tweet;
@@ -45,21 +44,13 @@ $(document).ready(function() {
 
   // Function which renders a database of tweets for newest to oldest
   const renderTweets = function(tweets) {
-    console.log(tweets);
-    for(let i = tweets.length - 1; i >= 0; i--) {
-      let $tweet = createTweetElement(tweets[i]);
+    $('.previousTweets').empty();
+    tweets.forEach( (x) => {
+      let $tweet = createTweetElement(x);
       // Add the html structure to the parent using class
-      $('.previousTweets').append($tweet);
-    }
+      $('.previousTweets').prepend($tweet);
+    });
   };
-  // Function which renders latest tweet once submitted 'prepend is needed to add it to the top'
-  const renderLatestTweet = function(tweets) {
-    let latestTweet = tweets.length - 1;
-    let $tweet = createTweetElement(tweets[latestTweet]);
-    // Add the html structure to the parent using class
-    $('.previousTweets').prepend($tweet);
-  }
-  
   
   // Get database for loading tweets
   const loadTweets = function() {
@@ -95,14 +86,7 @@ $(document).ready(function() {
         method: 'POST',
         data: urlAsQuery
       })
-      
-      $.ajax("/tweets",{method: "GET"}) //Load latest tweet can user load tweets refactoreded with a call back
-      .then(function(data) {
-        renderLatestTweet(data);
-      });
-      
+      .then(loadTweets());
     }
   });
-
-
 });
