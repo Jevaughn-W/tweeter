@@ -1,0 +1,35 @@
+@media only screen and (min-width: 768px) {
+
+  .tabletView {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    padding-top: 120px;
+    margin: 0 auto; 
+ }
+
+ main {
+   width: 70%;
+ }
+
+ header.dpSize {
+   margin: 1.5em;
+   height: 350px;
+   width: 400px;
+   padding: 0px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
+
+ div.dpSize img {
+   margin: 1em;
+   margin-bottom: .5em;
+ }
+
+ div.dpSize h2 {
+   padding: 0px;
+   margin: 0px;
+   margin-bottom: 1em;
+ }
+}
