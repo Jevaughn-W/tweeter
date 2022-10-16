@@ -8,10 +8,10 @@ $(document).ready(function() {
     
   
   // Function which renders a signle tweet
-  const createTweetElement = function (obj) {
+  const createTweetElement = function(obj) {
     
     // Escape function which prevents code from Cross site sripting --- there is a bug that recreates the last tweet on submission but changes after refresh
-    const escape = function (str) {
+    const escape = function(str) {
       let div = document.createElement("div");
       div.appendChild(document.createTextNode(str));
       return div.innerHTML;
@@ -40,12 +40,12 @@ $(document).ready(function() {
     </article>
     `;
     return $tweet;
-  }
+  };
 
   // Function which renders a database of tweets for newest to oldest
   const renderTweets = function(tweets) {
     $('.previousTweets').empty();
-    tweets.forEach( (x) => {
+    tweets.forEach((x) => {
       let $tweet = createTweetElement(x);
       // Add the html structure to the parent using class
       $('.previousTweets').prepend($tweet);
@@ -55,16 +55,16 @@ $(document).ready(function() {
   // Get database for loading tweets
   const loadTweets = function() {
     $.ajax("/tweets",{method: "GET"})
-    .then(function(data) {
-      renderTweets(data);
-    });
-  }
+      .then(function(data) {
+        renderTweets(data);
+      });
+  };
 
   // rendering of all the saved tweets
   loadTweets();
 
   // Submission handler
-  $('.new-tweet').submit((event)=>{
+  $('.new-tweet').submit((event)=> {
     event.preventDefault();  // Stops default action from submit button
 
     let urlAsQuery = $('form').serialize(); //Convert user text input as queryform
@@ -81,12 +81,13 @@ $(document).ready(function() {
       $('.hiddenExceed').slideDown("slow");
     } else {
 
-      $.ajax( {
+      $.ajax({
         url: "/tweets",
         method: 'POST',
         data: urlAsQuery
       })
-      .then(loadTweets());
+        .then(()=> loadTweets());
+      
     }
   });
 });
