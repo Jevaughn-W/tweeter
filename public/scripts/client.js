@@ -67,16 +67,14 @@ $(document).ready(function() {
   $('.new-tweet').submit((event)=> {
     event.preventDefault();  // Stops default action from submit button
 
+    let wordLength = $('#tweet-text').val().length; // Getting input length to check error
     let urlAsQuery = $('form').serialize(); //Convert user text input as queryform
     
     
-    if (urlAsQuery.length === 5) {  // output has a min value of 5 'text=', therefore if value = 5 there is no input
+    if (wordLength === 0) {  // Check for 0 input
       $('.hiddenEmpty').slideDown("slow");
-    } else if (urlAsQuery.length > 209) { // if greater that 145 then there are too many words, alternative is $('.counter').val()
+    } else if (wordLength > 140) { // if greater that 140 then there are too many words
       $('.hiddenExceed').slideDown("slow");
-      console.log("too much");
-      console.log("URL as query", urlAsQuery);
-      console.log("URL as query", urlAsQuery.length);
     } else {
       
      
