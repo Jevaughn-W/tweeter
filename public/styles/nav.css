@@ -31,3 +31,8 @@ span {
   flex-direction: column;
   align-items: center;
 }
+
+a {
+  color: white;
+  text-decoration: none;
+}
