@@ -4,7 +4,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: lightyellow;
+  background-color: #79A9D1;
   padding-top: 120px;
   background-image: url("../images/foggy-birds.png");
 }
@@ -17,4 +17,3 @@ span.name {
   font-weight: lighter;
   margin: 0em;
 }
-
