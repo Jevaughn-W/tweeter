@@ -69,24 +69,34 @@ $(document).ready(function() {
 
     let urlAsQuery = $('form').serialize(); //Convert user text input as queryform
     
-    // Resetting Errors.
-    $('.hiddenEmpty').hide();
-    $('.hiddenExceed').hide();
-    $('textarea').val("");
-    $('.counter').val(140);
     
     if (urlAsQuery.length === 5) {  // output has a min value of 5 'text=', therefore if value = 5 there is no input
       $('.hiddenEmpty').slideDown("slow");
-    } else if (urlAsQuery.length > 145) { // if greater that 145 then there are too many words, alternative is $('.counter').val()
+    } else if (urlAsQuery.length > 209) { // if greater that 145 then there are too many words, alternative is $('.counter').val()
       $('.hiddenExceed').slideDown("slow");
+      console.log("too much");
+      console.log("URL as query", urlAsQuery);
+      console.log("URL as query", urlAsQuery.length);
     } else {
+      
+     
+
 
       $.ajax({
         url: "/tweets",
         method: 'POST',
         data: urlAsQuery
       })
-        .then(()=> loadTweets());
+        .then(()=> {
+          
+          loadTweets()
+
+           // Resetting Errors.
+          $('.hiddenEmpty').hide();
+          $('.hiddenExceed').hide();
+          $('textarea').val("");
+          $('.counter').val(140);
+        });
       
     }
   });
