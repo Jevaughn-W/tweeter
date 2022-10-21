@@ -10,11 +10,11 @@ form div {
 }
 
 textarea {
-  background-color: #f4f1ec;
+  background-color: white;
   border-top: none;
   border-right: none;
   border-left: none;
-  border-bottom: 2px solid #545149 ;
+  border-bottom: 2px solid #36311F;
   font-family: "Source Sans Pro";
   margin-bottom: 1em;
 }
@@ -29,11 +29,18 @@ label {
 }
 
 button {
-  background-color: #4056A1;
+  background-color: #36311F;
   color: white;
-  border: none;
 }
 
 .negative {
   color: red;
+}
+
+button:hover {
+  background-color: goldenrod;
+}
+
+button:active {
+  background-color: #79A9D1;
 }
