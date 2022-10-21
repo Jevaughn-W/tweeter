@@ -8,7 +8,7 @@
 article {
   display: flex;
   flex-direction: column;
-  border: 4px solid #545149;
+  border: 4px solid #36311F;
   margin-bottom: 2em;
 }
 
@@ -42,7 +42,7 @@ img {
  width: 96%; 
  padding: 1em;
  font-family: "San Source Pro";
- border-bottom: 4px solid #545149;
+ border-bottom: 4px solid #36311F;
  margin-left: 1em;
 }
 
@@ -60,7 +60,7 @@ article:hover {
 
 
 .articleIcons {
-  color: #4056A1;
+  color: #59544B;
   width: 100px;
   display: flex;
   justify-content: space-evenly;
